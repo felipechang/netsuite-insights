@@ -1,0 +1,12 @@
+{
+  "name": "netsuite-insights",
+  "version": "1.0.0",
+  "scripts": {
+    "refresh": "cd src && node ../app/refresh.js",
+    "generate": "node app/generate.js"
+  },
+  "dependencies": {
+    "json2md": "^2.0.1",
+    "xml2js": "^0.6.2"
+  }
+}

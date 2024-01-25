@@ -1,0 +1,51 @@
+# IDEs and editors
+.idea
+*.iml
+*.iws
+.project
+.classpath
+*.launch
+.settings
+*.sublime-workspace
+.vscode
+
+# Dependency directories
+node_modules
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Packaged SDF projects
+build
+
+# misc
+.sass-cache
+
+# Optional npm cache directory
+.npm
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Output of 'npm pack'
+*.tgz
+
+# Project config
+project.json
+yarn.lock
+package-lock.json
+
+src/AccountConfiguration/*
+src/Objects/**/*.xml
+src/FileCabinet/SuiteBundles/*
+src/FileCabinet/SuiteScripts/*
+src/FileCabinet/Templates/E-mail Templates/*
+src/FileCabinet/Templates/Marketing Templates/*
+src/FileCabinet/Web Site Hosting Files/Live Hosting Files/*
+src/FileCabinet/Web Site Hosting Files/Staging Hosting Files/*

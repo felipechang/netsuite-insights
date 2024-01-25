@@ -2,7 +2,8 @@
 
 ### Notes:
 
-The SuiteScripts and SuiteBundle folders must be imported manually as NetSuite has issues importing relative paths.
+- The SuiteScripts and SuiteBundle folders must be imported manually as NetSuite has issues importing relative paths.
+- Locked assets will be visible as uncreated pages in Obsidian
 
 ### Installation
 

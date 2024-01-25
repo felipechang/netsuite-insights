@@ -57,8 +57,17 @@ const {extractRecordName, extractSelectType, extractFieldsFromText} = require(".
             for (let i = 0; i < result.customrecordcustomfields.length; i++) {
                 const fields = result.customrecordcustomfields[i].customrecordcustomfield;
                 for (let j = 0; j < fields.length; j++) {
-                    await storeRecordField(fields[j]);
-                    ul.push(`[[${fields[j]['$'].scriptid}]]`)
+                    const data = [
+                        {h1: fields[j].label[0]},
+                        {p: `#FIELD #NETSUITE`},
+                        {p: `Type: ${fields[j].fieldtype[0]}`}
+                    ];
+                    if (fields[j].selectrecordtype[0]) data.push({
+                        p: `Select Type:${extractSelectType(fields[j].selectrecordtype[0])}`
+                    });
+                    const id = fields[j]['$'].scriptid;
+                    await storeRecordField(data, id);
+                    ul.push(`[[${id}]]`)
                 }
             }
             if (ul.length > 0) response.push({ul});
@@ -128,7 +137,7 @@ const {extractRecordName, extractSelectType, extractFieldsFromText} = require(".
         {p: `#ROLE #NETSUITE`},
     ]);
 
-    await readXMLDirContent('savedsearch', (result) => [
+    await readXMLDirContent('savedsearch', (_) => [
         {p: `#SAVED_SEARCH #NETSUITE`},
     ]);
 

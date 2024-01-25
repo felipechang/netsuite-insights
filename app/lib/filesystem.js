@@ -3,10 +3,10 @@ const {readdir, readFile, writeFile} = require("node:fs/promises");
 const {existsSync, mkdirSync} = require("node:fs");
 const xml2js = require("xml2js");
 const json2md = require("json2md");
-const {extractFieldsFromText, extractSelectType} = require("./extract");
+const {extractFieldsFromText} = require("./extract");
 
-const baseScriptPath = `${__dirname}/../../src/FileCabinet`;
-const baseObjectPath = `${__dirname}/../../src/Objects`;
+const baseScriptPath = join(__dirname, '..', '..', 'src', 'FileCabinet');
+const baseObjectPath = join(__dirname, '..', '..', 'src', 'Objects');
 let baseStorePath = "";
 
 const setBaseStorePath = (storePath) => {
@@ -32,15 +32,9 @@ const readXMLDirContent = async (folder, cb) => {
     }
 }
 
-const storeRecordField = async (field) => {
-    const data = [
-        {h1: field.label[0]},
-        {p: `#FIELD`},
-        {p: `Type: ${field.fieldtype[0]}`}
-    ];
-    if (field.selectrecordtype[0]) data.push({p: `Select Type:${extractSelectType(field.selectrecordtype[0])}`});
+const storeRecordField = async (data, id) => {
     const baseStorePathFolder = join(baseStorePath, 'customrecordtype');
-    await writeFile(join(baseStorePathFolder, `${field['$'].scriptid}.md`), json2md(data));
+    await writeFile(join(baseStorePathFolder, `${id}.md`), json2md(data));
 }
 
 const readFieldsFromText = async (result, filePath) => {
@@ -56,9 +50,13 @@ const readPathsFromText = (extractPathsFromText, baseScriptPath, scriptPath) => 
 
     let paths = String(extractPathsFromText).match(/require\(['"]([^'"]+)['"]\)/g);
     if (!paths) return [];
-    paths = paths.map((e) =>
-        e.replace('require(', '').replace(')', '').replace(/"/g, '').replace(/'/g, '')
-    )
+    paths = paths.map(path => {
+        return path
+            .replace('require(', '')
+            .replace(')', '')
+            .replace(/"/g, '')
+            .replace(/'/g, '');
+    });
     paths = paths.filter((e) => e.indexOf('N/') === -1);
     return paths.map((e) => {
         if (e.startsWith('.')) return `${join(scriptPath, e)}.js`

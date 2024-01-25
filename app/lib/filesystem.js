@@ -21,6 +21,7 @@ const readXMLDirContent = async (folder, cb) => {
     if (!existsSync(baseStorePathFolder)) mkdirSync(baseStorePathFolder);
     for (let i = 0; i < basePathFolderFiles.length; i++) {
         if (basePathFolderFiles[i].indexOf('.template') !== -1) continue;
+        if (basePathFolderFiles[i].indexOf('.xml') === -1) continue;
         const filePath = join(basePathFolder, basePathFolderFiles[i]);
         xml2js.parseString(await readFile(filePath), async (error, result) => {
             if (error) console.error(error)

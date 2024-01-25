@@ -17,22 +17,31 @@ const {sep} = require("path");
     setBaseStorePath(process.argv[2]);
 
     await readXMLDirContent('advancedpdftemplate', async (result, filePath) => [
-        {p: `#TEMPLATE #NETSUITE`},
+        {p: "---"},
+        {p: `type: template`},
+        {p: "---"},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromText(result, filePath)}
     ]);
 
     await readXMLDirContent('clientscript', async (result) => [
+        {p: "---"},
+        {p: `type: script`},
+        {p: "---"},
         {h1: result.name[0]},
-        {p: `#SCRIPT #NETSUITE`},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
     await readXMLDirContent('crmcustomfield', (result) => {
         const response = [
+            {p: "---"},
+            {p: `type: field`},
+            {p: "---"},
             {h1: result.label[0]},
-            {p: `#FIELD #NETSUITE`},
+            {p: `#NETSUITE`},
             {p: `Description: ${result.description[0]}`},
             {p: `Type: ${result.fieldtype[0]}`},
         ];
@@ -42,15 +51,21 @@ const {sep} = require("path");
     });
 
     await readXMLDirContent('customlist', (result) => [
+        {p: "---"},
+        {p: `type: list`},
+        {p: "---"},
+        {p: `#NETSUITE`},
         {h1: `${result.name[0]}`},
-        {p: `#LIST #NETSUITE`},
         {p: `Description: ${result.description[0]}`},
     ]);
 
     await readXMLDirContent('customrecordtype', async (result) => {
         const response = [
+            {p: "---"},
+            {p: `type: record`},
+            {p: "---"},
             {h1: extractRecordName(result.recordname[0])},
-            {p: `#RECORD #NETSUITE`},
+            {p: `#NETSUITE`},
             {p: `Description: ${result.description[0]}`},
         ];
         if (!result.customrecordcustomfields) {
@@ -80,8 +95,11 @@ const {sep} = require("path");
 
     await readXMLDirContent('entitycustomfield', (result) => {
         const response = [
+            {p: "---"},
+            {p: `type: field`},
+            {p: "---"},
             {h1: result.label[0]},
-            {p: `#FIELD #NETSUITE`},
+            {p: `#NETSUITE`},
             {p: `Description: ${result.description[0]}`},
             {p: `Type: ${result.fieldtype[0]}`},
         ];
@@ -92,8 +110,11 @@ const {sep} = require("path");
 
     await readXMLDirContent('itemcustomfield', (result) => {
         const response = [
+            {p: "---"},
+            {p: `type: field`},
+            {p: "---"},
             {h1: result.label[0]},
-            {p: `#FIELD #NETSUITE`},
+            {p: `#NETSUITE`},
             {p: `Description: ${result.description[0]}`},
             {p: `Type: ${result.fieldtype[0]}`},
         ];
@@ -103,23 +124,32 @@ const {sep} = require("path");
     });
 
     await readXMLDirContent('mapreducescript', async (result) => [
+        {p: "---"},
+        {p: `type: script`},
+        {p: "---"},
         {h1: result.name[0]},
-        {p: `#SCRIPT #NETSUITE`},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
     await readXMLDirContent('massupdatescript', async (result) => [
+        {p: "---"},
+        {p: `type: script`},
+        {p: "---"},
         {h1: result.name[0]},
-        {p: `#SCRIPT #NETSUITE`},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
     await readXMLDirContent('othercustomfield', (result) => {
         const response = [
+            {p: "---"},
+            {p: `type: field`},
+            {p: "---"},
             {h1: result.label[0]},
-            {p: `#FIELD #NETSUITE`},
+            {p: `#NETSUITE`},
             {p: `Description: ${result.description[0]}`},
             {p: `Type: ${result.fieldtype[0]}`},
         ];
@@ -129,39 +159,57 @@ const {sep} = require("path");
     });
 
     await readXMLDirContent('restlet', async (result) => [
+        {p: "---"},
+        {p: `type: script`},
+        {p: "---"},
         {h1: result.name[0]},
-        {p: `#SCRIPT #NETSUITE`},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
     await readXMLDirContent('role', (result) => [
+        {p: "---"},
+        {p: `type: role`},
+        {p: "---"},
         {h1: `${result.name[0]}`},
-        {p: `#ROLE #NETSUITE`},
+        {p: `#NETSUITE`},
     ]);
 
     await readXMLDirContent('savedsearch', (_) => [
-        {p: `#SAVED_SEARCH #NETSUITE`},
+        {p: "---"},
+        {p: `type: search`},
+        {p: "---"},
+        {p: `#NETSUITE`},
     ]);
 
     await readXMLDirContent('scheduledscript', async (result) => [
+        {p: "---"},
+        {p: `type: script`},
+        {p: "---"},
         {h1: result.name[0]},
-        {p: `#SCRIPT #NETSUITE`},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
     await readXMLDirContent('suitelet', async (result) => [
+        {p: "---"},
+        {p: `type: script`},
+        {p: "---"},
         {h1: result.name[0]},
-        {p: `#SCRIPT #NETSUITE`},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
     await readXMLDirContent('transactionbodycustomfield', (result) => {
         const response = [
+            {p: "---"},
+            {p: `type: field`},
+            {p: "---"},
             {h1: result.label[0]},
-            {p: `#FIELD #NETSUITE`},
+            {p: `#NETSUITE`},
             {p: `Description: ${result.description[0]}`},
             {p: `Type: ${result.fieldtype[0]}`},
         ];
@@ -172,8 +220,11 @@ const {sep} = require("path");
 
     await readXMLDirContent('transactioncolumncustomfield', (result) => {
         const response = [
+            {p: "---"},
+            {p: `type: field`},
+            {p: "---"},
             {h1: result.label[0]},
-            {p: `#FIELD #NETSUITE`},
+            {p: `#NETSUITE`},
             {p: `Description: ${result.description[0]}`},
             {p: `Type: ${result.fieldtype[0]}`},
         ];
@@ -183,22 +234,27 @@ const {sep} = require("path");
     });
 
     await readXMLDirContent('usereventscript', async (result) => [
+        {p: "---"},
+        {p: `type: script`},
+        {p: "---"},
         {h1: result.name[0]},
-        {p: `#SCRIPT #NETSUITE`},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
     await readXMLDirContent('workflow', async (result) => {
         const response = [
+            {p: "---"},
+            {p: `type: workflow`},
+            {p: "---"},
             {h1: result.name[0]},
-            {p: `#WORKFLOW #NETSUITE`},
+            {p: `#NETSUITE`},
             {p: `Description: ${result.description[0]}`},
             {h2: `Record Types:`},
             {ul: result.recordtypes[0].split('|')},
             {h2: `Fields:`},
         ];
-
         let stringFields = [];
         for (let i = 0; i < result.workflowstates[0].workflowstate.length; i++) {
             const ws = result.workflowstates[0].workflowstate[i];
@@ -218,8 +274,11 @@ const {sep} = require("path");
     });
 
     await readXMLDirContent('workflowactionscript', async (result) => [
+        {p: "---"},
+        {p: `type: script`},
+        {p: "---"},
         {h1: result.name[0]},
-        {p: `#SCRIPT #NETSUITE`},
+        {p: `#NETSUITE`},
         {h2: `Fields:`},
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);

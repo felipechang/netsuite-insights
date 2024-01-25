@@ -6,11 +6,14 @@ const {
     setBaseStorePath
 } = require("./lib/filesystem");
 const {extractRecordName, extractSelectType, extractFieldsFromText} = require("./lib/extract");
+const {sep} = require("path");
 
 
 (async function () {
 
     if (!process.argv[2]) throw new Error('Please input a folder to store results.');
+    if (!process.argv[2].includes(sep)) throw new Error('Invalid folder path');
+
     setBaseStorePath(process.argv[2]);
 
     await readXMLDirContent('advancedpdftemplate', async (result, filePath) => [

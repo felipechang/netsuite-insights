@@ -76,8 +76,11 @@ const {sep} = require("path");
                 const fields = result.customrecordcustomfields[i].customrecordcustomfield;
                 for (let j = 0; j < fields.length; j++) {
                     const data = [
+                        {p: "---"},
+                        {p: `type: field`},
+                        {p: "---"},
                         {h1: fields[j].label[0]},
-                        {p: `#FIELD #NETSUITE`},
+                        {p: `#NETSUITE`},
                         {p: `Type: ${fields[j].fieldtype[0]}`}
                     ];
                     if (fields[j].selectrecordtype[0]) data.push({

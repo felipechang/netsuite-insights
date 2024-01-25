@@ -1,16 +1,16 @@
-const {join} = require("path");
+const {join, resolve} = require("path");
 const {readdir, readFile, writeFile} = require("node:fs/promises");
 const {existsSync, mkdirSync} = require("node:fs");
 const xml2js = require("xml2js");
 const json2md = require("json2md");
 const {extractFieldsFromText} = require("./extract");
 
-const baseScriptPath = join(__dirname, '..', '..', 'src', 'FileCabinet');
-const baseObjectPath = join(__dirname, '..', '..', 'src', 'Objects');
+const baseScriptPath = resolve('src', 'FileCabinet');
+const baseObjectPath = resolve('src', 'Objects');
 let baseStorePath = "";
 
 const setBaseStorePath = (storePath) => {
-    baseStorePath = join(process.cwd(), storePath);
+    baseStorePath = resolve(storePath);
     if (!existsSync(baseStorePath)) mkdirSync(baseStorePath);
 }
 

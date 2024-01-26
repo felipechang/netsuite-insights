@@ -14,10 +14,14 @@
 
 1) Fetch NetSuite account resources either:
     - Using the SDF interactive client and store files into named folders for each type.
-    - Using `npm run refresh`. Fetches resources one by one, so it takes a really long time.
-2) Download the SuiteScripts and SuiteBundles folder from the file cabinet and store under src/FileCabinet
-3) Run `npm run generate [folder]`: to generate [Obsidian](https://obsidian.md/download) markdown files in the specified
+    - Using `npm run refresh`. Fetches resources one at a time, so it takes a really long time.
+2) Download the SuiteScripts and SuiteBundles folder from the file cabinet and store under src/FileCabinet.
+3) Run `npm run generate [folder]` to generate [Obsidian](https://obsidian.md/download) markdown files in the specified
    folder path.
+
+### Example
+
+`npm run generate ../´pages`
 
 ### Result
 

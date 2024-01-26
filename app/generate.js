@@ -1,11 +1,15 @@
 const {
-    readXMLDirContent,
+    processCustomRecords,
     readFieldsFromText,
     readFieldsFromScript,
     storeRecordField,
     setBaseStorePath
 } = require("./lib/filesystem");
-const {extractRecordName, extractSelectType, extractFieldsFromText} = require("./lib/extract");
+const {
+    extractRecordName,
+    extractSelectType,
+    extractFieldsFromText
+} = require("./lib/extract");
 const {sep} = require("path");
 
 
@@ -16,7 +20,7 @@ const {sep} = require("path");
 
     setBaseStorePath(process.argv[2]);
 
-    await readXMLDirContent('advancedpdftemplate', async (result, filePath) => [
+    await processCustomRecords('advancedpdftemplate', async (result, filePath) => [
         {p: "---"},
         {p: `type: template`},
         {p: "---"},
@@ -25,7 +29,7 @@ const {sep} = require("path");
         {ul: await readFieldsFromText(result, filePath)}
     ]);
 
-    await readXMLDirContent('clientscript', async (result) => [
+    await processCustomRecords('clientscript', async (result) => [
         {p: "---"},
         {p: `type: script`},
         {p: "---"},
@@ -35,7 +39,7 @@ const {sep} = require("path");
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
-    await readXMLDirContent('crmcustomfield', (result) => {
+    await processCustomRecords('crmcustomfield', (result) => {
         const response = [
             {p: "---"},
             {p: `type: field`},
@@ -50,7 +54,7 @@ const {sep} = require("path");
         return response;
     });
 
-    await readXMLDirContent('customlist', (result) => [
+    await processCustomRecords('customlist', (result) => [
         {p: "---"},
         {p: `type: list`},
         {p: "---"},
@@ -59,7 +63,7 @@ const {sep} = require("path");
         {p: `Description: ${result.description[0]}`},
     ]);
 
-    await readXMLDirContent('customrecordtype', async (result) => {
+    await processCustomRecords('customrecordtype', async (result) => {
         const response = [
             {p: "---"},
             {p: `type: record`},
@@ -96,7 +100,7 @@ const {sep} = require("path");
         return response;
     });
 
-    await readXMLDirContent('entitycustomfield', (result) => {
+    await processCustomRecords('entitycustomfield', (result) => {
         const response = [
             {p: "---"},
             {p: `type: field`},
@@ -111,7 +115,7 @@ const {sep} = require("path");
         return response;
     });
 
-    await readXMLDirContent('itemcustomfield', (result) => {
+    await processCustomRecords('itemcustomfield', (result) => {
         const response = [
             {p: "---"},
             {p: `type: field`},
@@ -126,7 +130,7 @@ const {sep} = require("path");
         return response;
     });
 
-    await readXMLDirContent('mapreducescript', async (result) => [
+    await processCustomRecords('mapreducescript', async (result) => [
         {p: "---"},
         {p: `type: script`},
         {p: "---"},
@@ -136,7 +140,7 @@ const {sep} = require("path");
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
-    await readXMLDirContent('massupdatescript', async (result) => [
+    await processCustomRecords('massupdatescript', async (result) => [
         {p: "---"},
         {p: `type: script`},
         {p: "---"},
@@ -146,7 +150,7 @@ const {sep} = require("path");
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
-    await readXMLDirContent('othercustomfield', (result) => {
+    await processCustomRecords('othercustomfield', (result) => {
         const response = [
             {p: "---"},
             {p: `type: field`},
@@ -161,7 +165,7 @@ const {sep} = require("path");
         return response;
     });
 
-    await readXMLDirContent('restlet', async (result) => [
+    await processCustomRecords('restlet', async (result) => [
         {p: "---"},
         {p: `type: script`},
         {p: "---"},
@@ -171,7 +175,7 @@ const {sep} = require("path");
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
-    await readXMLDirContent('role', (result) => [
+    await processCustomRecords('role', (result) => [
         {p: "---"},
         {p: `type: role`},
         {p: "---"},
@@ -179,14 +183,14 @@ const {sep} = require("path");
         {p: `#NETSUITE`},
     ]);
 
-    await readXMLDirContent('savedsearch', (_) => [
+    await processCustomRecords('savedsearch', (_) => [
         {p: "---"},
         {p: `type: search`},
         {p: "---"},
         {p: `#NETSUITE`},
     ]);
 
-    await readXMLDirContent('scheduledscript', async (result) => [
+    await processCustomRecords('scheduledscript', async (result) => [
         {p: "---"},
         {p: `type: script`},
         {p: "---"},
@@ -196,7 +200,7 @@ const {sep} = require("path");
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
-    await readXMLDirContent('suitelet', async (result) => [
+    await processCustomRecords('suitelet', async (result) => [
         {p: "---"},
         {p: `type: script`},
         {p: "---"},
@@ -206,7 +210,7 @@ const {sep} = require("path");
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
-    await readXMLDirContent('transactionbodycustomfield', (result) => {
+    await processCustomRecords('transactionbodycustomfield', (result) => {
         const response = [
             {p: "---"},
             {p: `type: field`},
@@ -221,7 +225,7 @@ const {sep} = require("path");
         return response;
     });
 
-    await readXMLDirContent('transactioncolumncustomfield', (result) => {
+    await processCustomRecords('transactioncolumncustomfield', (result) => {
         const response = [
             {p: "---"},
             {p: `type: field`},
@@ -236,7 +240,7 @@ const {sep} = require("path");
         return response;
     });
 
-    await readXMLDirContent('usereventscript', async (result) => [
+    await processCustomRecords('usereventscript', async (result) => [
         {p: "---"},
         {p: `type: script`},
         {p: "---"},
@@ -246,7 +250,7 @@ const {sep} = require("path");
         {ul: await readFieldsFromScript(result.scriptfile[0], result['$'].scriptid)}
     ]);
 
-    await readXMLDirContent('workflow', async (result) => {
+    await processCustomRecords('workflow', async (result) => {
         const response = [
             {p: "---"},
             {p: `type: workflow`},
@@ -276,7 +280,7 @@ const {sep} = require("path");
         return response;
     });
 
-    await readXMLDirContent('workflowactionscript', async (result) => [
+    await processCustomRecords('workflowactionscript', async (result) => [
         {p: "---"},
         {p: `type: script`},
         {p: "---"},

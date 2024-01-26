@@ -1,12 +1,28 @@
+/**
+ * Extracts the select type
+ * @param {string} srt - The select type string
+ * @returns {string} The extracted select type
+ */
 const extractSelectType = (srt) => {
     if (srt.indexOf('[') === -1) return srt;
     return `[${srt.replace('scriptid=', '')}]`;
 }
+
+/**
+ * Extracts the record name
+ * @param {string} rcn - The record name object
+ * @returns {string} The extracted record name
+ */
 const extractRecordName = (rcn) => {
     if (rcn.hasOwnProperty('$')) return 'NOT AVAILABLE';
     return rcn;
 }
 
+/**
+ * Extracts fields from text
+ * @param {Buffer} content - The text content
+ * @returns {Array} The extracted fields array
+ */
 const extractFieldsFromText = (content) => {
     const excludedStrings = [
         'custworkflow',
